@@ -1,4 +1,18 @@
 
+# cleanup first
+unset PROJECT_NAME
+unset CONNECTION_STRING
+unset REPO_PATH
+unset DIRECTORIES_TO_BACKUP
+unset PATTERNS_TO_EXCLUDE
+unset BORG_REPO
+unset BORG_PASSPHRASE
+unset BORG_RSH
+unset BORG_KEEP_DAILY
+unset BORG_KEEP_WEEKLY
+unset BORG_KEEP_MONTHLY
+unset BORG_COMPRESSION
+
 if [ ! "$1" ]; then
     echo "Missing first argument - project conf"
     exit 2
@@ -22,8 +36,8 @@ fi
 # check config variables
 
 if [ ! "$PROJECT_NAME" ]; then
-    echo "PROJECT_NAME is not set"
-    exit 2
+    filename="$(basename "$1")"
+    export PROJECT_NAME="${filename%.*}"
 fi
 
 if [ ! "$CONNECTION_STRING" ]; then
