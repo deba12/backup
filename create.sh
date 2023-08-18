@@ -63,7 +63,7 @@ fi
 
 echo "Pruning repository"
 
-CMD="borg prune --prefix '${PROJECT_NAME}-' --keep-daily ${BORG_KEEP_DAILY}"
+CMD="borg prune --glob-archives '${PROJECT_NAME}-*' --keep-daily ${BORG_KEEP_DAILY}"
 
 if [ "$BORG_KEEP_WEEKLY" -gt 0 ]; then
     CMD=${CMD}" --keep-weekly ${BORG_KEEP_WEEKLY}"
