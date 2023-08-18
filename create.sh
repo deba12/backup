@@ -37,9 +37,29 @@ do
 done
 
 echo "$CMD"
+
+if [ -n "${EXEC_BEFORE}" ]; then
+    echo "Executing before backup: ${EXEC_BEFORE}"
+    eval "$EXEC_BEFORE"
+fi
+
 eval "$CMD"
 
 backup_exit=$?
+
+if [ ${backup_exit} -ne 0 ]; then
+    echo "Backup failed"
+    if [ -n "${EXEC_ON_ERROR}" ]; then
+        echo "Executing on error: ${EXEC_ON_ERROR}"
+        eval "$EXEC_ON_ERROR"
+    fi
+else
+    echo "Backup finished successfully"
+    if [ -n "${EXEC_AFTER}" ]; then
+        echo "Executing after backup:  ${EXEC_AFTER}"
+        eval "$EXEC_AFTER"
+    fi
+fi
 
 echo "Pruning repository"
 
