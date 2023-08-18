@@ -24,9 +24,9 @@ if [ -r "./$1" ]; then
     . "./$1"
 else
     # test can we read file in specified path
-    if [ -r "$1" ]; then
+    if [ -r "${dirname}"/"$1" ]; then
         # shellcheck disable=SC1090
-        . "$1"
+        . "${dirname}"/"$1"
     else
         echo "File $1 does not exist"
         exit 2
