@@ -10,14 +10,10 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
 
 NOW=$(date +"%Y%m%d%H%M%S");
 
-# Run Borg
-borg check --repository-only
-if [ $? -eq 2 ]; then
-    echo "trying to init"
-    ${BORG_RSH} "${CONNECTION_STRING}" test -d "${REPO_PATH}"
-    if ! ${BORG_RSH} "${CONNECTION_STRING}" test -d "${REPO_PATH}"; then
-        ${BORG_RSH} "${CONNECTION_STRING}" mkdir -p "${REPO_PATH}"
-    fi
+
+if ! ${BORG_RSH} "${CONNECTION_STRING}" test -d "${REPO_PATH}"; then
+    echo "Init repository in directory ${REPO_PATH}"
+    ${BORG_RSH} "${CONNECTION_STRING}" mkdir -p "${REPO_PATH}"
     borg init --encryption repokey
 fi
 
