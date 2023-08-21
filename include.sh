@@ -33,6 +33,12 @@ else
     fi
 fi
 
+borg=$(which borg)
+if [ -z "$borg" ]; then
+    echo "borg is not installed"
+    exit 2
+fi
+
 # check config variables
 
 if [ ! "$PROJECT_NAME" ]; then
