@@ -11,7 +11,7 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
 NOW=$(date +"%Y%m%d-%H%M%S");
 
 
-if ! ${BORG_RSH} "${CONNECTION_STRING}" test -d "${REPO_PATH}"; then
+if ! ${BORG_RSH} "${CONNECTION_STRING}" test -e "${REPO_PATH}/config"; then
     echo "Init repository in directory ${REPO_PATH}"
     ${BORG_RSH} "${CONNECTION_STRING}" mkdir -p "${REPO_PATH}"
     borg init --encryption repokey
