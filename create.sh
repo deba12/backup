@@ -8,7 +8,7 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
 
 . "$dirname/include.sh"
 
-NOW=$(date +"%Y%m%d%H%M%S");
+NOW=$(date +"%Y%m%d-%H%M%S");
 
 
 if ! ${BORG_RSH} "${CONNECTION_STRING}" test -d "${REPO_PATH}"; then
